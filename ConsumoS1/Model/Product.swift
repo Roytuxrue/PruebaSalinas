@@ -10,9 +10,9 @@ import Foundation
 
 // Root
 struct ProductResponse: Codable {
-    let message: String
-    let warning: String
-    let result: ResultData
+    let message: String?
+    let warning: String?
+    let result: ResultData?
     
     enum CodingKeys: String, CodingKey {
         case message = "mensaje"
@@ -23,9 +23,9 @@ struct ProductResponse: Codable {
 
 //  Result
 struct ResultData: Codable {
-    let pagination: Pagination
-    let category: String
-    let products: [Product]
+    let pagination: Pagination?
+    let category: String?
+    let products: [Product]?
     
     enum CodingKeys: String, CodingKey {
         case pagination = "paginacion"
@@ -36,10 +36,10 @@ struct ResultData: Codable {
 
 //  Pagination
 struct Pagination: Codable {
-    let page: Int
-    let totalPages: Int
-    let totalRecords: Int
-    let totalRecordsPerPage: Int
+    let page: Int?
+    let totalPages: Int?
+    let totalRecords: Int?
+    let totalRecordsPerPage: Int?
     
     enum CodingKeys: String, CodingKey {
         case page = "pagina"
@@ -51,25 +51,25 @@ struct Pagination: Codable {
 
 // Product
 struct Product: Codable, Identifiable {
-    let id: String
-    let lineId: Int
-    let categoryCode: String
-    let modalityId: Int
-    let relevance: Int
-    let creditLine: String
-    let mainWeeklyPayment: Double
-    let mainTerm: Int
-    let creditAvailable: Bool
-    let weeklyPayments: [WeeklyPayment]
-    let sku: String
-    let name: String
-    let imageUrls: [String]
-    let regularPrice: Double
-    let finalPrice: Double
-    let discountPercentage: Double
-    let hasDiscount: Bool
-    let creditPrice: Double
-    let discountAmount: Double
+    let id: String?
+    let lineId: Int?
+    let categoryCode: String?
+    let modalityId: Int?
+    let relevance: Int?
+    let creditLine: String?
+    let mainWeeklyPayment: Double?
+    let mainTerm: Int?
+    let creditAvailable: Bool?
+    let weeklyPayments: [WeeklyPayment]?
+    let sku: String?
+    let name: String?
+    let imageUrls: [String]?
+    let regularPrice: Double?
+    let finalPrice: Double?
+    let discountPercentage: Double?
+    let hasDiscount: Bool?
+    let creditPrice: Double?
+    let discountAmount: Double?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -82,7 +82,7 @@ struct Product: Codable, Identifiable {
         case mainTerm = "plazoPrincipal"
         case creditAvailable = "disponibleCredito"
         case weeklyPayments = "abonosSemanales"
-        case sku, name
+        case sku, name = "nombre"
         case imageUrls = "urlImagenes"
         case regularPrice = "precioRegular"
         case finalPrice = "precioFinal"
@@ -93,22 +93,22 @@ struct Product: Codable, Identifiable {
     }
     
     var displayImage: String {
-        imageUrls.first ?? ""
+        imageUrls?.first ?? ""
     }
 }
 
 // Weekly Payment
 struct WeeklyPayment: Codable {
-    let term: Int
-    let paymentAmount: Double
-    let paymentDiscountAmount: Double
-    let lastPaymentAmount: Double
-    let finalCreditAmount: Double
-    let promotionId: Int
-    let elektraDiscountAmount: Double
-    let bankDiscountAmount: Double
-    let price: Double
-    let digitalPaymentAmount: Double
+    let term: Int?
+    let paymentAmount: Double?
+    let paymentDiscountAmount: Double?
+    let lastPaymentAmount: Double?
+    let finalCreditAmount: Double?
+    let promotionId: Int?
+    let elektraDiscountAmount: Double?
+    let bankDiscountAmount: Double?
+    let price: Double?
+    let digitalPaymentAmount: Double?
     
     enum CodingKeys: String, CodingKey {
         case term = "plazo"

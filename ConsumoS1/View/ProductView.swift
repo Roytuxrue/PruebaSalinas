@@ -5,43 +5,45 @@
 //  Created by Roytuxrue on 30/09/25.
 //
 
-import Foundation
 
 import SwiftUI
 
 struct ProductView: View {
-    @StateObject private var viewModel = ProductViewModel()
+    @State private var selectedProduct: ProductViewData? = nil
     
     var body: some View {
         NavigationView {
-            VStack {
-                if let errorMessage = viewModel.errorMessage {
-                    Text("Error: \(errorMessage)")
-                        .foregroundColor(.red)
-                        .padding()
-                }
+            VStack(spacing: 20) {
                 
-                List(viewModel.products) { product in
+             
+                if let product = selectedProduct {
+                    Text("Producto Seleccionado:")
+                        .font(.headline)
                     ProductCardView(product: product)
+                } else {
+                    Text("No se ha seleccionado ningún producto.")
+                        .foregroundColor(.gray)
                 }
                 
-                Button(action: {
-                    Task {
-                        await viewModel.loadProducts()
-                    }
-                }) {
-                    Text("Load Products")
+                Spacer()
+                
+                // segunda pantalla
+                NavigationLink(destination: ProductListView(onProductSelected: { product in
+                    
+                    self.selectedProduct = product
+                })) {
+                    Text("Buscar Productos")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.blue)
                         .cornerRadius(10)
-                        .padding(.horizontal)
                 }
-                .padding(.bottom)
+                
             }
-            .navigationTitle("Products")
+            .padding()
+            .navigationTitle("Pantalla Principal")
         }
     }
 }

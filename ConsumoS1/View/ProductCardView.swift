@@ -9,13 +9,14 @@
 import SwiftUI
 
 struct ProductCardView: View {
-    let product: Product
-    
+    let product: ProductViewData
+
     var body: some View {
         HStack(spacing: 15) {
-            AsyncImage(url: URL(string: product.displayImage)) { image in
-                image.resizable()
-                     .scaledToFit()
+            AsyncImage(url: URL(string: product.imageUrl)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
             } placeholder: {
                 Color.gray.opacity(0.3)
             }
@@ -26,14 +27,22 @@ struct ProductCardView: View {
                 Text(product.name)
                     .font(.headline)
                     .lineLimit(2)
-                Text("Price: $\(product.finalPrice, specifier: "%.2f")")
+                
+                Text(product.regularPrice)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .strikethrough()
+
+                Text(product.finalPrice)
                     .font(.subheadline)
+                    .bold()
                     .foregroundColor(.green)
-                Text("Category: \(product.categoryCode)")
+                
+                Text("Category: \(product.category)")
                     .font(.caption)
                     .foregroundColor(.gray)
             }
+            .padding(.vertical, 5)
         }
-        .padding(.vertical, 5)
     }
 }
